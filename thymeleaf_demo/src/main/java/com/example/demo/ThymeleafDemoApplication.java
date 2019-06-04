@@ -25,7 +25,7 @@ public class ThymeleafDemoApplication {
 		people.add(p3);
 		model.addAttribute("singlePerson", single);
 		model.addAttribute("people", people);
-		return "index";
+		return "index"; //视图解析（自带）
 	}
 	public static void main(String[] args) {
 		SpringApplication.run(ThymeleafDemoApplication.class, args);
