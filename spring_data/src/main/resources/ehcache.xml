@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ehcache >
-    <cache name="people" maxElementsInMemory="1000" timeToLiveSeconds="2"/>
+    <cache name="people" maxElementsInMemory="1000" timeToLiveSeconds="10"/>
     <!--<cache name="people" timeToLiveSeconds="5" />-->
 </ehcache>
 
