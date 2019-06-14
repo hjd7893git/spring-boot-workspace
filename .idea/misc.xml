@@ -7,13 +7,8 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/spring_security/pom.xml" />
-        <option value="$PROJECT_DIR$/bootsrap_angular_demo/pom.xml" />
-        <option value="$PROJECT_DIR$/thymeleaf_demo/pom.xml" />
-        <option value="$PROJECT_DIR$/spring_mongodb/pom.xml" />
-        <option value="$PROJECT_DIR$/spring_redis/pom.xml" />
-        <option value="$PROJECT_DIR$/spring_data/pom.xml" />
-        <option value="$PROJECT_DIR$/spring_boot/pom.xml" />
+        <option value="$PROJECT_DIR$/spring_jms/pom.xml" />
+        <option value="$PROJECT_DIR$/spring_amqp/pom.xml" />
       </list>
     </option>
   </component>

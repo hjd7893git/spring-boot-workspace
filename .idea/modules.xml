@@ -2,14 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/bootsrap_angular_demo/bootsrap_angular_demo.iml" filepath="$PROJECT_DIR$/bootsrap_angular_demo/bootsrap_angular_demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/spring-boot-workspace.iml" filepath="$PROJECT_DIR$/.idea/spring-boot-workspace.iml" />
-      <module fileurl="file://$PROJECT_DIR$/spring_boot/spring_boot.iml" filepath="$PROJECT_DIR$/spring_boot/spring_boot.iml" />
-      <module fileurl="file://$PROJECT_DIR$/spring_data/spring_data.iml" filepath="$PROJECT_DIR$/spring_data/spring_data.iml" />
-      <module fileurl="file://$PROJECT_DIR$/spring_mongodb/spring_mongodb.iml" filepath="$PROJECT_DIR$/spring_mongodb/spring_mongodb.iml" />
-      <module fileurl="file://$PROJECT_DIR$/spring_redis/spring_redis.iml" filepath="$PROJECT_DIR$/spring_redis/spring_redis.iml" />
-      <module fileurl="file://$PROJECT_DIR$/spring_security/spring_security.iml" filepath="$PROJECT_DIR$/spring_security/spring_security.iml" />
-      <module fileurl="file://$PROJECT_DIR$/thymeleaf_demo/thymeleaf_demo.iml" filepath="$PROJECT_DIR$/thymeleaf_demo/thymeleaf_demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring_amqp/spring_amqp.iml" filepath="$PROJECT_DIR$/spring_amqp/spring_amqp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring_jms/spring_jms.iml" filepath="$PROJECT_DIR$/spring_jms/spring_jms.iml" />
     </modules>
   </component>
 </project>
