@@ -17,14 +17,14 @@ public class DemoApplicationForMVC {
 //        viewControllerRegistry.addViewController("/xx").setViewName("/xy");
 //    }
 
-    @Bean  //定义视图解析器
-    public InternalResourceViewResolver internalResourceViewResolver() {
-        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setPrefix("/templates/");
-        resolver.setSuffix(".html");
-//        resolver.setViewClass(HTML.class);
-        return resolver;
-    }
+//    @Bean  //定义视图解析器
+//    public InternalResourceViewResolver internalResourceViewResolver() {
+//        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+//        resolver.setPrefix("/templates/");
+//        resolver.setSuffix(".html");
+////        resolver.setViewClass(HTML.class);
+//        return resolver;
+//    }
 
     @RequestMapping("/2")
     public String index2() {

@@ -4,12 +4,8 @@ import com.example.demo.bean.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 
 import javax.annotation.Resource;
 
