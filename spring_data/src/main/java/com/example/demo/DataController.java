@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 import java.util.List;
 
 @RestController
@@ -20,31 +22,28 @@ public class DataController {
 
     /**
      * 保存
-     * save支持批量保存：<S extends T> Iterable
-     * <S> save(Iterable
-     * <S> entities);
-     * <p>
+     * save支持批量保存：<S extends T> Iterable save(Iterable entities);
+     *
      * 删除：
      * 支持使用id删除对象、批量删除以及删除全部：
      * void delete(ID id);
      * void delete(T entity);
-     * void delete(Iterable
-     * <? extends T> entities);
+     * void delete(Iterable<? extends T> entities);
      * void deleteAll();
      */
-    @RequestMapping("/all")
-    public List<Person> findAll(){
+    @GetMapping("/all")
+    public List<Person> findAll() {
         return personRepository.findAll();
     }
 
     @RequestMapping("/save")
     public Person save(String name, String address, Integer age) {
         Person p = personRepository.save(new Person(null, name, age, address));
-        return  p;
+        return p;
     }
 
     //如果RequestMapping中表示为"/viewItems/{id}"，id和形参名称一致，@PathVariable不用指定名称。
-    @RequestMapping(value = "/del/{id}" )
+    @RequestMapping(value = "/del/{id}")
     public void delete(@PathVariable(value = "id") Long idd) {
         personRepository.deleteById(idd);
     }
@@ -71,8 +70,8 @@ public class DataController {
      * 测试withNameAndAddressQuery
      */
     @RequestMapping("/q3")
-    public Person q3(String name, String address) {
-        Person p = personRepository.withNameAndAddressQuery(name, address);
+    public List<Person> q3(String name, String address) {
+        List<Person> p = personRepository.withNameAndAddressQuery(name, address);
         return p;
     }
 
@@ -84,6 +83,29 @@ public class DataController {
         List<Person> p = personRepository.withNameAndAddressNamedQuery(name, address);
         return p;
     }
+
+    /**
+     * 修改信息
+     */
+    @GetMapping("/up1")
+    public Integer up1(String name, Long id) {
+        return personRepository.updataName(name, id);
+    }
+
+    //查询id进行修改
+    @PostMapping("up2")
+    public Person up2(Person person) {
+        Person person1 = personRepository.findById(person.getId()).get();
+        System.out.println(person.getName());
+        return personRepository.save(person1);
+    }
+
+    //查询到新增页面时，id禁止修改，修改其它内容后直接存储
+    @PostMapping("up3")
+    public Person up3(Person person){
+        return personRepository.save(person);
+    }
+
 
     /**
      * 测试排序
@@ -99,7 +121,7 @@ public class DataController {
      */
     @RequestMapping("/page")
     public Page<Person> page() {
-        Page<Person> pagePeople = personRepository.findAll(new  PageRequest(1, 2));
+        Page<Person> pagePeople = personRepository.findAll(new PageRequest(0, 2));
         return pagePeople;
     }
 }

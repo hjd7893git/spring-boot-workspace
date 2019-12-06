@@ -12,7 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity //1注解指明这是一个和数据库表映射的实体类
-@NamedQuery(name = "Person.withNameAndAddressNamedQuery", query = "select p from Person p where p.name=?1 and address=?2")
+@NamedQuery(name = "Person.withNameAndAddressNamedQuery", query = "select p from Person p where p.name=:n and address=:ad")
 public class Person {
     @Id //2注解指明这个属性映射为数据库的主键。
     @GeneratedValue(strategy = GenerationType.IDENTITY) //3注解默认使用主键生成方式为自增,
