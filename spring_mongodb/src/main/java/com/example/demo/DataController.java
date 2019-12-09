@@ -4,8 +4,8 @@ import com.example.demo.daomain.PersonRepository;
 import com.example.demo.domain.Location;
 import com.example.demo.domain.Person;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -41,4 +41,32 @@ public class DataController {
     public List<Person> q2(Integer age) {
         return personRepository.withQueryFindByAge(age);
     }
+
+    //根据id进行查询
+    @GetMapping("findById/{id}")
+    public Person findById(@PathVariable("id") String id){
+        return personRepository.findById(id).orElse(null);
+    }
+
+    //查询所有
+    @GetMapping("findAll")
+    public List<Person> findall(){
+        return personRepository.findAll();
+    }
+
+    //更新
+    @PostMapping("updata")
+    public Person updata(Person person){
+        return personRepository.save(person);
+    }
+
+    //删除
+    @DeleteMapping("delete/{id}")
+    public String delete(@PathVariable("id") String id){
+        personRepository.deleteById(id);
+        return personRepository.findById(id).orElse(null) == null ? "删除成功！" : "删除失败";
+    }
+
+
+
 }

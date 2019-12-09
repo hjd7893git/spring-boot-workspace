@@ -5,3 +5,6 @@
 </ehcache>
 
         <!--EhCache所需的配置文件ehcache.xml只需放在类路径下，Spring Boot会自动扫描-->
+
+<!--当配置此项时，方法上所生成的变量有效性的方式是以此为标准依据的
+    若不配置此项时，则默认为concurrentMapCacheManager缓存技术-->

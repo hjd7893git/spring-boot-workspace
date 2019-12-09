@@ -31,10 +31,10 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
     /**
      * 　　可以用@Query注解来将自定义sql语句绑定到自定义方法上。
      * 　　可以用@Modifying注解来标注只需要绑定参数的自定义的更新类语句（更新、插入、删除）。
-     * 　　@Modifying只与@Query联合使用，派生类的查询方法和自定义的方法不需要此注解，如：
+     * 　　并且@Modifying只与@Query联合使用，派生类的查询方法和自定义的方法不需要此注解，如：
      */
     @Modifying
-    @Query("update Person p set p.name=:name where id=:id")
+    @Query("update Person p set p.name=:name where p.id =:id")
     Integer updataName(@Param("name") String name, @Param("id") Long id);
 
 }
