@@ -1,11 +1,11 @@
 package com.example.demo.domain;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-import org.springframework.data.rest.core.annotation.RestResource;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
 public interface PersonRepository extends JpaRepository<Person, Long> {
 
     //1使用方法名查询，接受一个name参数，返回值为列表。
-    List<Person> findByAddress(String address);
+    List<Person> findByAddress(String address, Pageable pageable);
 
     //2使用方法名查询，接受name和address，返回值为单个对象。
     @Query("select p from Person p where p.name= ?1 and p.address= ?2")

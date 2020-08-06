@@ -1,10 +1,9 @@
 package com.example.demo.controller;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 /**
  * Created by Administrator on 2019/5/29.
@@ -26,6 +25,7 @@ public class DemoApplicationForMVC {
 //        return resolver;
 //    }
 
+    @ResponseBody
     @RequestMapping("/2")
     public String index2() {
         return "xy";

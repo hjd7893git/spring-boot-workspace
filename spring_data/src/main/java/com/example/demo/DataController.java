@@ -5,13 +5,10 @@ import com.example.demo.domain.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
 import java.util.List;
 
 @RestController
@@ -53,7 +50,8 @@ public class DataController {
      */
     @RequestMapping("/q1")
     public List<Person> q1(String address) {
-        List<Person> people = personRepository.findByAddress(address);
+        Pageable pageable = PageRequest.of(0,2); //创建分页
+        List<Person> people = personRepository.findByAddress(address, pageable);
         return people;
     }
 

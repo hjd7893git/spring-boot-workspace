@@ -1,20 +1,23 @@
 package com.example.demo.config;
 
+import com.example.demo.security.CustomUserService;
 import com.example.demo.security.MyAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
+@EnableWebSecurity
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {//1扩展SpringSecurity配置需继承WebSecurityConfigurerAdapter。
 
     @Autowired
-    UserDetailsService customUserService;  //2 注册CustomUserService的Bean。
+    CustomUserService customUserService;  //2 注册CustomUserService的Bean。
 
     @Autowired
     MyAuthenticationProvider myAuthenticationProvider;
@@ -30,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {//1扩展Sp
 //                .withUser("user").password("123").roles("ROLE");
 
         //自带认证
-//        auth.userDetailsService(customUserService).passwordEncoder(NoOpPasswordEncoder.getInstance());//不加密
+        auth.userDetailsService(customUserService).passwordEncoder(NoOpPasswordEncoder.getInstance());//不加密
 //                .passwordEncoder(new BCryptPasswordEncoder()); //加密
         //3添加我们自定义的user detail service认证
     }

@@ -22,7 +22,7 @@ public class DemoCachServiceImpl implements DemoCachService {
     }
 
     @Override
-    @CacheEvict(value = "people") //2@CacheEvict从缓存people中删除key为id的数据
+    @CacheEvict(value = "people",key = "#id") //2@CacheEvict从缓存people中删除key为id的数据
     public void remove(Long id) {
         System.out.println("删除了id、key为" + id + "的数据缓存");
 //        personRepository.deleteById(id);

@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.IndexDirection;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -11,6 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class Person {
     @Id //2 @Id注解表明这个属性为文档的Id。
     private String id;
+    @Indexed(direction = IndexDirection.DESCENDING) //倒叙索引
     private String name;
     private Integer age;
     @Field("locs")//3 @Field注解此属性在文档中的名称为locs，locations属性将以数组形式存在当前数据记录中。

@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import com.example.demo.jms.Msg;
+import org.apache.activemq.command.ActiveMQQueue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -20,6 +21,8 @@ public class SpringJmsApplication implements CommandLineRunner {
 	}
 	@Override
 	public void run(String... args) throws Exception {
+		jmsTemplate.convertAndSend("my-destination","hahah");
+		jmsTemplate.convertAndSend(new ActiveMQQueue("my-destination"),"21211r");
 		jmsTemplate.send("my-destination", new Msg());
 		//3通过JmsTemplate的send方法向my-destination目的地发送Msg的消息，这里也等于在消息代理上定义了一个目的地叫my-destination。
 	}

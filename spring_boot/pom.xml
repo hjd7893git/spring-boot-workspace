@@ -11,7 +11,7 @@
     <groupId>com.example</groupId>
     <artifactId>spring_boot</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>demo</name>
+    <name>spring_boot</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -42,7 +42,7 @@
             <scope>test</scope>
         </dependency>
 
-<!--PropertySource属性配置文件  @PropertySource -->
+        <!--导入配置文件处理器，配置文件进行绑定就会有提示,@ConfigurationProperties-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
@@ -55,12 +55,18 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
+        <!-- spring-boot-devtools热启动依赖包 start-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-remote-shell</artifactId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+            <scope>true</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
         </dependency>
     </dependencies>
-
 
 
     <build>

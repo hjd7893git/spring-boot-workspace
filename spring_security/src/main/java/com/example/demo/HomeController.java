@@ -16,6 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
 public class HomeController {
     @RequestMapping("/")
     public String index(Model model) {
+        /**
+         * 登陆验证在此之前就执行了，因为首先第一步就进入到了WebSecurityConfigurerAdapter过滤器
+         */
         Msg msg = new Msg("测试标题", "测试内容", "额外信息，只对管 理员显示");
         System.out.println("====================================>>"+ SecurityContextHolder.getContext().getAuthentication());
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

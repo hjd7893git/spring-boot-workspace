@@ -1,6 +1,7 @@
 package com.example.demo.jms;
 
 import org.springframework.jms.core.MessageCreator;
+import org.springframework.stereotype.Component;
 
 import javax.jms.JMSException;
 import javax.jms.Message;
@@ -10,6 +11,7 @@ import javax.jms.Session;
  * 定义JMS发送的消息需实现MessageCreator接口，并重写其
  createMessage方法
  */
+@Component
 public class Msg implements MessageCreator {
     @Override
     public Message createMessage(Session session) throws JMSException {
