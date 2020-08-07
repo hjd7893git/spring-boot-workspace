@@ -1,0 +1,16 @@
+server:
+  port: 8011
+
+person:
+  age: 18
+  username: zhangsan
+  citys:
+    - beijing
+    - shanghai
+    - guangzhou
+  birthday: 2019/08/13
+  animals:
+    - name: dog
+      age: 3
+    - name: cat
+      age: 2
