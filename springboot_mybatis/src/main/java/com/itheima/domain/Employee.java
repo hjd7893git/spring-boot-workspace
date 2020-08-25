@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.util.Date;
+
 @Data
 @Accessors(chain = true)
 public class Employee {
@@ -17,5 +19,10 @@ public class Employee {
     private Integer gender;
     private String email;
     private Integer dId;
+    private Date date;
+
+    private int age;
+
+    private int roleId;
 
 }
