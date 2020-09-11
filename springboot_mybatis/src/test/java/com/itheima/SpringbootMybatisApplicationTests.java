@@ -1,5 +1,6 @@
 package com.itheima;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -51,11 +52,18 @@ public class SpringbootMybatisApplicationTests {
         List<Employee> objects = emloyeeServicep.list(new QueryWrapper<Employee>().eq("id", 2));
         List<Employee> objectss = emloyeeServicep.list(new QueryWrapper<Employee>().ne("id",2));
         List<Employee> objectssnotdate = emloyeeServicep.list(new QueryWrapper<Employee>().select(Employee.class, i -> !"date".equals(i.getColumn()))); //排除某个字段
-        List<Employee> objects2 = emloyeeServicep.list(new QueryWrapper<Employee>().lambda().eq(Employee::getId,2).eq(Employee::getLastName,"黄俊东"));
+        List<Employee> objects2 = emloyeeServicep.list(new QueryWrapper<Employee>().lambda().eq(Employee::getGender,2).eq(Employee::getLastName,"黄俊东"));
         List<Employee> objects23 = emloyeeServicep.list(new QueryWrapper<Employee>().lambda().eq(Employee::getId,2).and(i->i.eq(Employee::getLastName,"黄俊洞")));
         List<Employee> objects3 = emloyeeServicep.list(new QueryWrapper<Employee>().select("id,LastName").eq("id",2));
         List<Employee> objects4 = emloyeeServicep.list(new QueryWrapper<Employee>().lambda().select(Employee::getId,Employee::getLastName).eq(Employee::getId,2));
         List<Employee> objects5 = emloyeeServicep.list(Wrappers.<Employee>lambdaQuery().select(Employee::getId, Employee::getLastName).eq(Employee::getId, 2));
+        List<Employee> objects57 = emloyeeServicep.query().eq("id", 2).list();
+
+
+        LambdaQueryWrapper<Employee> q2 = new QueryWrapper<Employee>().lambda();
+        q2.eq(Employee::getGender,2);
+        q2.eq(Employee::getLastName,"hjd");
+        List<Employee> list = emloyeeServicep.list(q2);
 
 
         //-------------------------------------------分页-----------------------------------------------
@@ -76,7 +84,7 @@ public class SpringbootMybatisApplicationTests {
         //-------------------------------------------更新-----------------------------------------------
         //第一个参数为空的话，第二个参数里必须加入更新条件，不不然报错，
         //若第二个参数有更新条件的话，第一个参数可以不加入更新条件
-        emloyeeServicep.update(new Employee().setLastName("dss"), new QueryWrapper<Employee>().lambda().eq(Employee::getId,2));
+        emloyeeServicep.update(new Employee().setLastName("222222222"), new QueryWrapper<Employee>().lambda().eq(Employee::getId,2));
         emloyeeServicep.update(new UpdateWrapper<Employee>().lambda().set(Employee::getLastName,"updata").eq(Employee::getId,2));
         //前一个条件后一个条件的更新
         emloyeeServicep.update(new Employee().setEmail("1622@qq.com"),Wrappers.<Employee>lambdaUpdate().set(Employee::getLastName,"黄俊东").eq(Employee::getId,2));
