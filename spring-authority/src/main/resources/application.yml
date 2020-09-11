@@ -1,0 +1,47 @@
+spring:
+  datasource:
+    username: root
+    password: hjd
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.0.200:3306/authorty?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+  mvc:
+    view:
+      suffix: .html
+
+
+mybatis-plus:
+  mapper-locations:
+    - classpath:mapper/mapper/*Mapper.xml
+
+logging:
+  level:
+    root: info
+jwt:
+  tokenHeader: Authorization #JWT存储的请求头
+  secret: mall-admin-secret #JWT加解密使用的密钥
+  expiration: 604800 #JWT的超期限时间(60*60*24*7)
+  tokenHead: 'Bearer ' #JWT负载中拿到开头
+
+#安全路径白名单
+secure:
+  ignored:
+    urls:
+      - /swagger-ui.html
+      - /swagger-resources/**
+      - /swagger/**
+      - /**/v2/api-docs
+      - /**/*.js
+      - /**/*.css
+      - /**/*.png
+      - /**/*.ico
+      - /webjars/springfox-swagger-ui/**
+      - /actuator/**
+      - /druid/**
+      - /admin/login
+      - /admin/register
+      - /admin/info
+      - /admin/logout
+      - /minio/upload
+      - /index
+      - /loginToken
+#      - /bai

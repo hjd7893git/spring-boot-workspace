@@ -1,6 +1,7 @@
 package spring.springauthority.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.security.core.userdetails.UserDetails;
 import spring.springauthority.entity.UmsAdmin;
 
 /**
@@ -14,4 +15,6 @@ import spring.springauthority.entity.UmsAdmin;
 public interface IUmsAdminService extends IService<UmsAdmin> {
 
     String login(String username, String password);
+
+    public UserDetails loadUserByUsername(String username);
 }

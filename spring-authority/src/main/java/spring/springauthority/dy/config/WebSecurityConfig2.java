@@ -1,7 +1,10 @@
-package spring.springauthority.config;
+package spring.springauthority.dy.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,17 +14,23 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import spring.springauthority.jwt.JwtAuthenticationTokenFilter;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
+import spring.springauthority.config.IgnoreUrlsConfig;
+import spring.springauthority.dy.DynamicAccessDecisionManager;
+import spring.springauthority.dy.DynamicSecurityFilter;
+import spring.springauthority.dy.DynamicSecurityMetadataSource;
+import spring.springauthority.dy.DynamicSecurityService;
 import spring.springauthority.service.IUmsAdminService;
 
-//@Order(2)
-//@EnableGlobalMethodSecurity(prePostEnabled = true)
-//@EnableWebSecurity
-//@Configuration
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {//1扩展SpringSecurity配置需继承WebSecurityConfigurerAdapter。
+@Order(1)
+@Configuration
+public class WebSecurityConfig2 extends WebSecurityConfigurerAdapter {//1扩展SpringSecurity配置需继承WebSecurityConfigurerAdapter。
 
     @Autowired
     IUmsAdminService iUmsAdminService;
+
+    @Autowired(required = false)
+    private DynamicSecurityService dynamicSecurityService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -37,6 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {//1扩展Sp
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         for (String url : ignoreUrlsConfig().getUrls()) {
             http.authorizeRequests().antMatchers(url).permitAll();
         }
@@ -47,23 +57,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {//1扩展Sp
                 .anyRequest()
                 .authenticated();
 
-//                .and().authorizeRequests().anyRequest().authenticated();
-//                .and()
-//                .addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-
         http.formLogin().loginPage("/index");
         http.logout().logoutSuccessUrl("/");//注销成功以后来到首页
         http.rememberMe(); //记住我
 
+
+        if (dynamicSecurityService != null) {
+            http.authorizeRequests().and().addFilterBefore(dynamicSecurityFilter(), FilterSecurityInterceptor.class);
+        }
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
         //解决静态资源被拦截的问题
         web.ignoring().antMatchers("/css/**");
-//        for (String url : ignoreUrlsConfig().getUrls()) {
-//            web.ignoring().antMatchers(url);
-//        }
     }
 
     @Bean
@@ -71,10 +78,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {//1扩展Sp
         return new IgnoreUrlsConfig();
     }
 
+    @ConditionalOnBean(name = "dynamicSecurityService")
     @Bean
-    public JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter() {
-        return new JwtAuthenticationTokenFilter();
+    public DynamicAccessDecisionManager dynamicAccessDecisionManager() {
+        return new DynamicAccessDecisionManager();
     }
 
+
+    @ConditionalOnBean(name = "dynamicSecurityService")
+    @Bean
+    public DynamicSecurityFilter dynamicSecurityFilter() {
+        return new DynamicSecurityFilter();
+    }
+
+    @ConditionalOnBean(name = "dynamicSecurityService")
+    @Bean
+    public DynamicSecurityMetadataSource dynamicSecurityMetadataSource() {
+        return new DynamicSecurityMetadataSource();
+    }
 
 }

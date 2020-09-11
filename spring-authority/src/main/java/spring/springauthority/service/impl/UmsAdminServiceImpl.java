@@ -13,9 +13,10 @@ import org.springframework.stereotype.Service;
 import spring.springauthority.dto.UserLogin;
 import spring.springauthority.entity.UmsAdmin;
 import spring.springauthority.entity.UmsResource;
+import spring.springauthority.jwt.JwtTokenUtil;
 import spring.springauthority.mapper.UmsAdminMapper;
-import spring.springauthority.mapper.UmsAdminRoleRelationMapper;
 import spring.springauthority.mapper.UmsRoleMapper;
+import spring.springauthority.service.IUmsAdminRoleRelationService;
 import spring.springauthority.service.IUmsAdminService;
 
 import java.util.List;
@@ -35,18 +36,22 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper, UmsAdmin> i
     UmsRoleMapper umsRoleMapper;
 
     @Autowired
-    UmsAdminRoleRelationMapper umsAdminRoleRelationMapper;
+    private JwtTokenUtil jwtTokenUtil;
+
+    @Autowired
+    IUmsAdminRoleRelationService iUmsAdminRoleRelationService;
 
     @Override
     public String login(String username, String password) {
         try {
             UserDetails userDetails = loadUserByUsername(username);
-            if (password != userDetails.getPassword()) {
+            if (!password.equals(userDetails.getPassword())) {
                 throw new BadCredentialsException("密码不正确");
             }
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication); //执行存储
-            return userDetails.getUsername();
+//            return userDetails.getUsername();
+            return jwtTokenUtil.generateToken(userDetails);//服务端生成token
             //添加登陆记录
         } catch (AuthenticationException e) {
             System.out.println("异常登陆");
@@ -57,8 +62,8 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper, UmsAdmin> i
 
     public UserDetails loadUserByUsername(String username) {
         List<UmsAdmin> listAdmin = this.list(new QueryWrapper<UmsAdmin>().lambda().eq(UmsAdmin::getUsername, username));
-        if (listAdmin != null) {
-            List<UmsResource> resourceList = umsAdminRoleRelationMapper.getResourceList(listAdmin.get(0).getId());
+        if (listAdmin != null && listAdmin.size() > 0) {
+            List<UmsResource> resourceList = iUmsAdminRoleRelationService.getResourceList(listAdmin.get(0).getId());
             return new UserLogin(listAdmin.get(0), resourceList);
         }
         throw new UsernameNotFoundException("用户名或密码错误");

@@ -28,36 +28,37 @@ public class UserLogin implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return umsResources.stream().map(role -> new SimpleGrantedAuthority(role.getId() + ":" + role.getName())).collect(Collectors.toList());
+//        return umsResources.stream().map(role -> new SimpleGrantedAuthority(role.getUrl())).collect(Collectors.toList()); //请求路径
+        return umsResources.stream().map(umsresources -> new SimpleGrantedAuthority(umsresources.getId()+":"+umsresources.getName())).collect(Collectors.toList());
     }
 
     @Override
     public String getPassword() {
-        return null;
+        return umsAdmin.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return umsAdmin.getUsername();
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return umsAdmin.getStatus().equals(1);
     }
 }
