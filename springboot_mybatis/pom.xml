@@ -43,7 +43,7 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
-            <version>5.1.34</version>
+            <version>8.0.28</version>
         </dependency>
 
         <!--Swagger-UI API文档生产工具-->
